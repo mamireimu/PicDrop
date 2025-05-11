@@ -1,0 +1,6 @@
+This software uses the following third-party libraries:
+
+- Newtonsoft.Json
+  https://github.com/JamesNK/Newtonsoft.Json  
+  Licensed under the MIT License  
+  https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md
