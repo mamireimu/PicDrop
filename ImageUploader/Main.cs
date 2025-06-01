@@ -80,10 +80,18 @@ namespace ImageUploader
             try
             {
                 if (!CheckAuth()) return;
-                if (!Clipboard.ContainsImage()) return;
+                if (!(Clipboard.ContainsImage()))
+                {
+                    MessageBox.Show("クリップボードに画像がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                Image? image = Clipboard.GetImage();
-                if (image == null) return;
+                var image = Clipboard.GetImage();
+                if (image == null)
+                {
+                    MessageBox.Show("クリップボードに画像がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 pictureBox1.Image?.Dispose();
                 pictureBox1.Image = (Image)image.Clone();
@@ -117,7 +125,8 @@ namespace ImageUploader
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("アップロードに失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var reason = response.ReasonPhrase ?? "不明なエラー";
+                    MessageBox.Show("アップロードに失敗しました。\n" + "エラー: " + reason, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -132,37 +141,14 @@ namespace ImageUploader
 
                 string url = ApiGetEndpoint(endpoint) + "?id=" + uploadedFileName;
 
-                try
-                {
-                    Clipboard.SetText(url);
-                }
-                catch (Exception ex)
-                {
-                    if (ex is not ExternalException)
-                        MessageBox.Show("クリップボードへのコピーに失敗しました。\n" + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
                 uploadedUrl.Text = url;
-                System.Media.SystemSounds.Asterisk.Play();
+
+                CopyText();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("アップロード中にエラーが発生しました。\n" + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private bool CheckAuth()
-        {
-            string endpoint = endpointBox.Text.Trim();
-            string apiKey = apiKeyBox.Text.Trim();
-
-            if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(apiKey))
-            {
-                MessageBox.Show("エンドポイントまたはAPIキーが設定されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            return true;
         }
 
         private static void SaveApiData(string endpoint, string apiKey)
@@ -176,6 +162,41 @@ namespace ImageUploader
             {
                 MessageBox.Show("設定の保存に失敗しました。\n" + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+            => CopyText();
+
+        private void CopyText()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(uploadedUrl.Text))
+                {
+                    MessageBox.Show("アップロードされた画像のURLがありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                Clipboard.SetText(uploadedUrl.Text);
+                System.Media.SystemSounds.Asterisk.Play();
+            }
+            catch (Exception ex)
+            {
+                if (ex is not ExternalException)
+                    MessageBox.Show("クリップボードへのコピーに失敗しました。\n" + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private bool CheckAuth()
+        {
+            string endpoint = endpointBox.Text.Trim();
+            string apiKey = apiKeyBox.Text.Trim();
+
+            if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(apiKey))
+            {
+                MessageBox.Show("エンドポイントまたはAPIキーが設定されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
         }
     }
 }

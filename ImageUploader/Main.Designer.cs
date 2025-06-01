@@ -37,23 +37,24 @@
             endpointBox = new TextBox();
             label4 = new Label();
             apiKeyBox = new TextBox();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // uploadedUrl
             // 
             uploadedUrl.Font = new Font("Yu Gothic UI", 13F);
-            uploadedUrl.Location = new Point(119, 399);
+            uploadedUrl.Location = new Point(119, 425);
             uploadedUrl.Name = "uploadedUrl";
             uploadedUrl.ReadOnly = true;
-            uploadedUrl.Size = new Size(415, 31);
+            uploadedUrl.Size = new Size(235, 31);
             uploadedUrl.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Yu Gothic UI", 12F);
-            label1.Location = new Point(7, 403);
+            label1.Location = new Point(7, 429);
             label1.Name = "label1";
             label1.Size = new Size(106, 21);
             label1.TabIndex = 1;
@@ -62,19 +63,19 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Yu Gothic UI", 20F);
-            label2.Location = new Point(12, 9);
+            label2.Font = new Font("Yu Gothic UI", 13F, FontStyle.Bold);
+            label2.Location = new Point(7, 9);
             label2.Name = "label2";
-            label2.Size = new Size(395, 37);
+            label2.Size = new Size(74, 25);
             label2.TabIndex = 2;
-            label2.Text = "ここにドラッグアンドドロップしてねー！";
+            label2.Text = "プレビュー";
             // 
             // button1
             // 
             button1.Font = new Font("Yu Gothic UI", 12F);
-            button1.Location = new Point(404, 9);
+            button1.Location = new Point(12, 252);
             button1.Name = "button1";
-            button1.Size = new Size(142, 249);
+            button1.Size = new Size(424, 46);
             button1.TabIndex = 3;
             button1.Text = "クリップボード";
             button1.UseVisualStyleBackColor = true;
@@ -82,9 +83,9 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(12, 49);
+            pictureBox1.Location = new Point(12, 37);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(376, 209);
+            pictureBox1.Size = new Size(424, 209);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
@@ -93,7 +94,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Yu Gothic UI", 12F);
-            label3.Location = new Point(12, 282);
+            label3.Location = new Point(12, 328);
             label3.Name = "label3";
             label3.Size = new Size(92, 21);
             label3.TabIndex = 6;
@@ -102,16 +103,16 @@
             // endpointBox
             // 
             endpointBox.Font = new Font("Yu Gothic UI", 13F);
-            endpointBox.Location = new Point(119, 278);
+            endpointBox.Location = new Point(119, 324);
             endpointBox.Name = "endpointBox";
-            endpointBox.Size = new Size(378, 31);
+            endpointBox.Size = new Size(317, 31);
             endpointBox.TabIndex = 5;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Yu Gothic UI", 12F);
-            label4.Location = new Point(49, 326);
+            label4.Location = new Point(49, 372);
             label4.Name = "label4";
             label4.Size = new Size(55, 21);
             label4.TabIndex = 8;
@@ -120,18 +121,29 @@
             // apiKeyBox
             // 
             apiKeyBox.Font = new Font("Yu Gothic UI", 13F);
-            apiKeyBox.Location = new Point(119, 322);
+            apiKeyBox.Location = new Point(119, 368);
             apiKeyBox.Name = "apiKeyBox";
             apiKeyBox.PasswordChar = '*';
-            apiKeyBox.Size = new Size(378, 31);
+            apiKeyBox.Size = new Size(317, 31);
             apiKeyBox.TabIndex = 7;
             // 
-            // Form1
+            // button2
+            // 
+            button2.Location = new Point(360, 427);
+            button2.Name = "button2";
+            button2.Size = new Size(84, 28);
+            button2.TabIndex = 9;
+            button2.Text = "コピー";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += Button2_Click;
+            // 
+            // Main
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(567, 444);
+            ClientSize = new Size(448, 469);
+            Controls.Add(button2);
             Controls.Add(label4);
             Controls.Add(apiKeyBox);
             Controls.Add(label3);
@@ -143,7 +155,7 @@
             Controls.Add(uploadedUrl);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
-            Name = "Form1";
+            Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "画像アップローダー";
             DragDrop += Form1_DragDrop;
@@ -164,5 +176,6 @@
         private TextBox endpointBox;
         private Label label4;
         private TextBox apiKeyBox;
+        private Button button2;
     }
 }
