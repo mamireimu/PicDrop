@@ -9,6 +9,10 @@
 	  <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
 	<ItemGroup>
 		<Content Include="Resources\AppIcon.ico" />
 	</ItemGroup>
