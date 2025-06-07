@@ -1,18 +1,23 @@
 using Newtonsoft.Json;
 using System.Runtime.InteropServices;
 
-namespace ImageUploader
+namespace PicDrop
 {
     public partial class Main : Form
     {
+        private const string CURRENT_VERSION = "v1.0.2";
+        private static readonly string FORM_TITLE = $"PicDrop {CURRENT_VERSION}";
+
         private static string ApiPostEndpoint(string endpoint) => endpoint + "/upload";
         private static string ApiGetEndpoint(string endpoint) => endpoint + "/get";
 
-        private readonly HttpClient httpClient = new();
+        private readonly HttpClient _httpClient = new();
 
         public Main()
         {
             InitializeComponent();
+
+            Text = FORM_TITLE;
 
             string endpointFilePath = "./endpoint";
             if (File.Exists(endpointFilePath))
@@ -56,7 +61,7 @@ namespace ImageUploader
             try
             {
                 if (!CheckAuth()) return;
-                string[]? files = e.Data?.GetData(DataFormats.FileDrop) as string[];
+                string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
                 if (files == null || files.Length == 0) return;
 
                 string file = files[0];
@@ -64,7 +69,7 @@ namespace ImageUploader
 
                 using var image = Image.FromFile(file);
                 pictureBox1.Image?.Dispose();
-                pictureBox1.Image = (Image)image.Clone(); // Clone to avoid disposing issues
+                pictureBox1.Image = (Image)image.Clone();
 
                 byte[] fileBytes = await File.ReadAllBytesAsync(file);
                 await UploadAndDisplayImageAsync(fileBytes);
@@ -117,11 +122,11 @@ namespace ImageUploader
 
                 SaveApiData(endpoint, apiKey);
 
-                httpClient.DefaultRequestHeaders.Remove("Authorization");
-                httpClient.DefaultRequestHeaders.Add("Authorization", apiKey);
+                _httpClient.DefaultRequestHeaders.Remove("Authorization");
+                _httpClient.DefaultRequestHeaders.Add("Authorization", apiKey);
 
                 using var content = new ByteArrayContent(fileBytes);
-                HttpResponseMessage response = await httpClient.PostAsync(ApiPostEndpoint(endpoint), content);
+                HttpResponseMessage response = await _httpClient.PostAsync(ApiPostEndpoint(endpoint), content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -185,6 +190,7 @@ namespace ImageUploader
                     MessageBox.Show("クリップボードへのコピーに失敗しました。\n" + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private bool CheckAuth()
         {
             string endpoint = endpointBox.Text.Trim();

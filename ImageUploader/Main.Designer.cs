@@ -1,4 +1,4 @@
-﻿namespace ImageUploader
+﻿namespace PicDrop
 {
     partial class Main
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             uploadedUrl = new TextBox();
             label1 = new Label();
             label2 = new Label();
@@ -154,10 +155,11 @@
             Controls.Add(label1);
             Controls.Add(uploadedUrl);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "画像アップローダー";
+            Text = "PicDrop v{version}";
             DragDrop += Form1_DragDrop;
             DragEnter += Form1_DragEnter;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

@@ -1,4 +1,4 @@
-namespace ImageUploader
+namespace PicDrop
 {
     internal static class Program
     {
