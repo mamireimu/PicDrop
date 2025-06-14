@@ -157,7 +157,8 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] {
                 new ToolStripMenuItem("PicBasket公式ページ", null, (_, __) => OpenUrl("https://vrc.mamisrv.net/piba")),
                 new ToolStripMenuItem("PicBasket FANBOX", null, (_, __) => OpenUrl("https://mamireimu.fanbox.cc/")),
-                new ToolStripMenuItem("体験版 APIキー取得", null, (_, __) => OpenUrl("https://mamireimu.fanbox.cc/posts/9986599"))
+                new ToolStripMenuItem("体験版 APIキー取得", null, (_, __) => OpenUrl("https://vrc.mamisrv.net/piba_trial_redirect.html")),
+                new ToolStripMenuItem("ライセンス", null, (_, __) => OpenUrl("https://github.com/mamireimu/PicDrop/blob/picbasket-dev/LICENSE.txt"))
             });
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
