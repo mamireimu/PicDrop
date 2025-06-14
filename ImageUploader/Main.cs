@@ -6,7 +6,7 @@ namespace PicDrop
     public partial class Main : Form
     {
         private const string CURRENT_VERSION = "v1.0.2";
-        private static readonly string FORM_TITLE = $"PicDrop {CURRENT_VERSION}";
+        private static readonly string FORM_TITLE = $"PicDrop {CURRENT_VERSION} PicBasket.Edition";
 
         private static string ApiPostEndpoint(string endpoint) => endpoint + "/upload";
         private static string ApiGetEndpoint(string endpoint) => endpoint + "/get";
@@ -203,6 +203,27 @@ namespace PicDrop
             }
 
             return true;
+        }
+
+        private void OpenUrl(string url)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("リンクを開けませんでした。\n" + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
